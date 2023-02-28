@@ -7,7 +7,7 @@ authors = ["myapp.com"]
 
 
 [tool.poetry.dependencies]
-python = "3.9.15"
+python = "3.10.9"
 
 django = { version = "^3.2", extras = ["argon2"] }
 django-split-settings = "^1.2"
@@ -29,6 +29,8 @@ pydantic = "^1.10"
 punq = "^0.6"
 
 [tool.poetry.group.dev.dependencies]
+mimesis = "^7.0"
+
 django-debug-toolbar = "^3.6"
 django-querycount = "^0.7"
 django-migration-linter = "^4.1"

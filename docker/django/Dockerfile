@@ -2,7 +2,7 @@
 # This Dockerfile uses multi-stage build to customize DEV and PROD images:
 # https://docs.docker.com/develop/develop-images/multistage-build/
 
-FROM python:3.9.15-slim-buster AS development_build
+FROM python:3.10.9-slim-buster AS development_build
 
 LABEL maintainer="myapp.com"
 LABEL vendor="myapp.com"
@@ -89,7 +89,9 @@ RUN --mount=type=cache,target="$POETRY_CACHE_DIR" \
 COPY ./docker/django/entrypoint.sh /docker-entrypoint.sh
 
 # Setting up proper permissions:
-RUN chmod +x '/docker-entrypoint.sh'
+RUN chmod +x '/docker-entrypoint.sh' \
+  # Replacing line separator CRLF with LF for Windows users:
+  && sed -i 's/\r$//g' '/docker-entrypoint.sh'
 
 # Running as non-root user:
 USER web
