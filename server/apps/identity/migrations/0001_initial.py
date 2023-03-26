@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(max_length=254)),
                 ('job_title', models.CharField(max_length=254)),
                 ('phone', models.CharField(max_length=254)),
-                ('lead_id', models.IntegerField(blank=True, null=True)),
+                ('lead_id', models.IntegerField(blank=True)),
                 ('is_staff', models.BooleanField(default=False)),
                 ('is_active', models.BooleanField(default=True)),
                 (
