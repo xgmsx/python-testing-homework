@@ -1,14 +1,13 @@
 import datetime as dt
-from typing import Callable, Protocol, TypeAlias, TypedDict, final
+from typing import Callable, Protocol, TypedDict, final
 
 import pytest
 from mimesis.schema import Field, Schema
-from typing_extensions import Unpack
+from typing_extensions import TypeAlias, Unpack
 
 from server.apps.identity.models import User
 
 
-@final
 class UserData(TypedDict, total=False):
     """
     Represent the simplified user data that is required to create a new user.
@@ -39,8 +38,11 @@ class RegistrationData(UserData, total=False):
 
 
 @final
-class RegistrationDataFactory(Protocol):
-    """Registration data protocol."""
+class RegistrationDataFactory(Protocol):  # type: ignore[misc]
+    """Registration data protocol.
+
+    Mypy: RegistrationDataFactory has abstract attributes "__call__"  [misc]
+    """
 
     def __call__(
         self,
@@ -68,7 +70,8 @@ def registration_data_factory(
             'phone': mf('person.telephone'),
         })
         return {
-            **schema.create(iterations=1)[0],
+            # Mypy: Expected TypedDict key to be string literal  [misc]
+            **schema.create(iterations=1)[0],  # type: ignore[misc]
             **{'password1': password, 'password2': password},
             **fields,
         }
