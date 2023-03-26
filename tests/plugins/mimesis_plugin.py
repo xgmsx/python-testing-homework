@@ -4,11 +4,13 @@ import pytest
 from mimesis.locales import Locale
 from mimesis.schema import Field
 
+FAKER_SEED_MAGIC_NUMBER = 32
+
 
 @pytest.fixture(scope='session')
 def faker_seed() -> int:
     """Seed generation fixture."""
-    return random.Random().getrandbits(32)  # noqa: WPS432
+    return random.Random().getrandbits(FAKER_SEED_MAGIC_NUMBER)
 
 
 @pytest.fixture(scope='session')
