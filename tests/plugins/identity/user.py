@@ -76,7 +76,9 @@ def registration_data_factory(
 
 
 @pytest.fixture()
-def registration_data(registration_data_factory: 'RegistrationDataFactory') -> 'RegistrationData':
+def registration_data(
+    registration_data_factory: 'RegistrationDataFactory',
+) -> 'RegistrationData':
     """Default registration data."""
     return registration_data_factory()
 
