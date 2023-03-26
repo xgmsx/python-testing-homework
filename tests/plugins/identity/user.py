@@ -55,7 +55,7 @@ def registration_data_factory(
 ) -> 'RegistrationDataFactory':
     """Returns factory for fake random data for registration."""
     def factory(
-            **fields: Unpack['RegistrationData'],
+        **fields: Unpack['RegistrationData'],
     ) -> 'RegistrationData':
         password = mf('password')
         schema = Schema(schema=lambda: {
