@@ -77,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimedMixin):
     objects = _UserManager()  # noqa: WPS110
 
     USERNAME_FIELD = 'email'  # noqa: WPS115
+    BIRTHDAY_FIELD = 'date_of_birth'  # noqa: WPS115
     REQUIRED_FIELDS = [  # noqa: WPS115
         'first_name',
         'last_name',
