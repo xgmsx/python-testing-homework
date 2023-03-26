@@ -68,7 +68,7 @@ def test_registration_forgotten_required_field(
 ) -> None:
     """Test that missing required will fail the registration."""
     post_data = registration_data_factory()
-    post_data.pop(field)
+    post_data.pop(field)  # type: ignore[misc]
     response = client.post(
         reverse('identity:registration'),
         data=post_data,
