@@ -15,6 +15,10 @@ if TYPE_CHECKING:
         UserData,
     )
 
+REQUIRED_FIELD_WITHOUT_BIRTHDAY = list(
+    set(User.REQUIRED_FIELDS) - {User.BIRTHDAY_FIELD},
+)
+
 
 @pytest.mark.django_db()
 def test_registration_page_renders(client: Client) -> None:
@@ -41,7 +45,9 @@ def test_valid_registration(
 
 
 @pytest.mark.django_db()
-@pytest.mark.parametrize('field', User.REQUIRED_FIELDS + [User.USERNAME_FIELD])
+@pytest.mark.parametrize(
+    'field', REQUIRED_FIELD_WITHOUT_BIRTHDAY + [User.USERNAME_FIELD],
+)
 def test_registration_missing_required_field(
     client: Client,
     registration_data_factory: 'RegistrationDataFactory',
@@ -60,7 +66,9 @@ def test_registration_missing_required_field(
 
 
 @pytest.mark.django_db()
-@pytest.mark.parametrize('field', User.REQUIRED_FIELDS + [User.USERNAME_FIELD])
+@pytest.mark.parametrize(
+    'field', REQUIRED_FIELD_WITHOUT_BIRTHDAY + [User.USERNAME_FIELD],
+)
 def test_registration_forgotten_required_field(
     client: Client,
     registration_data_factory: 'RegistrationDataFactory',

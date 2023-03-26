@@ -115,7 +115,5 @@ def assert_correct_user() -> UserAssertion:
         assert not user.is_staff
         # All other fields:
         for field_name, data_value in expected.items():
-            if field_name == User.BIRTHDAY_FIELD and not data_value:
-                continue  # Field nullable and not required in User model
             assert getattr(user, field_name) == data_value
     return factory
