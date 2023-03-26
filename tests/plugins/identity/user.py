@@ -1,10 +1,17 @@
 import datetime as dt
-
-from typing import final, TypedDict, Protocol, TypeAlias, Callable, Collection, Optional
-from typing_extensions import Unpack
+from typing import (
+    Callable,
+    Collection,
+    Optional,
+    Protocol,
+    TypeAlias,
+    TypedDict,
+    final,
+)
 
 import pytest
 from mimesis.schema import Field, Schema
+from typing_extensions import Unpack
 
 from server.apps.identity.models import User
 
@@ -16,6 +23,7 @@ class UserData(TypedDict, total=False):
     It does not include ``password``, because it is very special in django.
     Importing this type is only allowed under ``if TYPE_CHECKING`` in tests.
     """
+
     email: str
     first_name: str
     last_name: str
@@ -31,6 +39,7 @@ class RegistrationData(UserData, total=False):
     Represent the registration data that is required to create a new user.
     Importing this type is only allowed under ``if TYPE_CHECKING`` in tests.
     """
+
     password1: str
     password2: str
 
@@ -49,7 +58,7 @@ class RegistrationDataFactory(Protocol):
 def registration_data_factory(
     mf: Field
 ) -> 'RegistrationDataFactory':
-    """Returns factory for fake random data for registration"""
+    """Returns factory for fake random data for registration."""
     def factory(
             excluded_fields: Optional[Collection[str]] = None,
             **fields: Unpack[RegistrationData]
@@ -80,9 +89,7 @@ def registration_data_factory(
 
 @pytest.fixture()
 def registration_data(registration_data_factory: 'RegistrationDataFactory') -> 'RegistrationData':
-    """
-    Default registration data
-    """
+    """Default registration data."""
     return registration_data_factory()
 
 

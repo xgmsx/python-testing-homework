@@ -10,5 +10,5 @@ pytest_plugins = [
     # Should be the first custom one:
     'plugins.django_settings',
     'plugins.identity.user',
-    'plugins.mimesis_plugin'
+    'plugins.mimesis_plugin',
 ]

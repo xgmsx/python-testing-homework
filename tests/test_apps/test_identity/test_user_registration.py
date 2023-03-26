@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING
 
 import pytest
 from django.test import Client
@@ -11,8 +11,8 @@ if TYPE_CHECKING:
     from tests.plugins.identity.user import (
         RegistrationData,
         RegistrationDataFactory,
-        UserData,
         UserAssertion,
+        UserData,
     )
 
 
@@ -28,12 +28,12 @@ def test_valid_registration(
     client: Client,
     registration_data: 'RegistrationData',
     user_data: 'UserData',
-    assert_correct_user: 'UserAssertion'
+    assert_correct_user: 'UserAssertion',
 ) -> None:
     """Test that registration works with correct data."""
     response = client.post(
         reverse('identity:registration'),
-        data=registration_data
+        data=registration_data,
     )
     assert response.status_code == HTTPStatus.FOUND
     assert response.get('Location') == reverse('identity:login')
@@ -48,7 +48,8 @@ def test_registration_missing_required_field(
     field: str,
 ) -> None:
     """Test that missing required will fail the registration."""
-    post_data = registration_data_factory(**{field: ''},  # type: ignore[arg-type]
+    post_data = registration_data_factory(
+        **{field: ''},  # type: ignore[arg-type]
     )
     response = client.post(
         reverse('identity:registration'),
@@ -72,5 +73,5 @@ def test_registration_forgotten_required_field(
         data=post_data,
     )
     assert response.status_code == HTTPStatus.OK
-    if not field == 'email':
+    if field != 'email':
         assert not User.objects.filter(email=post_data['email'])
