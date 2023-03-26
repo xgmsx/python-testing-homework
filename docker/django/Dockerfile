@@ -2,7 +2,7 @@
 # This Dockerfile uses multi-stage build to customize DEV and PROD images:
 # https://docs.docker.com/develop/develop-images/multistage-build/
 
-FROM python:3.10.9-slim-buster AS development_build
+FROM python:3.9.13-slim-buster AS development_build
 
 LABEL maintainer="myapp.com"
 LABEL vendor="myapp.com"
